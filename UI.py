@@ -1,5 +1,6 @@
 import streamlit as st
 from audio_recorder_streamlit import audio_recorder
+import base64
 
 
 def autoplay_audio(file_path: str):
@@ -26,13 +27,6 @@ if audio_bytes:
     autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
     # Embed audio with autoplay
     
-
-
-
-import base64
-
-import streamlit as st
-
 
 if st.button("Test Speakers"):
     autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
