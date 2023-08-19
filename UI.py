@@ -12,7 +12,7 @@ import json
 import time
 
 
-@st.cache_data()
+# @st.cache_data()
 def load_settings():
     
     # Extracting the eleven labs token
