@@ -14,9 +14,16 @@ import time
 
 @st.cache_data()
 def load_settings():
+    
     # Extracting the eleven labs token
-    with open("secrets.json") as f:
-        ELEVEN_LABS_TOKEN = json.load(f)["ELEVEN_LABS_TOKEN"]
+    
+    try:
+        ELEVEN_LABS_TOKEN = st.secrets["ELEVEN_LABS_TOKEN"]
+    
+    except Exception as error:
+
+        with open("secrets.json") as f:
+            ELEVEN_LABS_TOKEN = json.load(f)["ELEVEN_LABS_TOKEN"]
 
     # Setting the API key
     set_api_key(ELEVEN_LABS_TOKEN)
