@@ -25,22 +25,15 @@ def load_settings():
         with open("secrets.json") as f:
             ELEVEN_LABS_TOKEN = json.load(f)["ELEVEN_LABS_TOKEN"]
 
-    # Setting the API key
-    set_api_key(ELEVEN_LABS_TOKEN)
 
-    voices = Voices.from_api()
-    my_voice = voices[-1]
-    my_voice.settings.stability = 1.0
-    my_voice.settings.similarity_boost = 1.0
+   # Setting the API set_api_key
 
-    return my_voice
-
-start = time.time()
-my_voice = load_settings()
-end = time.time()
-st.write(end - start)
-
-
+set_api_key(ELEVEN_LABS_TOKEN)
+voices = Voices.from_api()
+my_voice = voices[-1]
+my_voice.settings.stability = 1.0
+my_voice.settings.similarity_boost = 1.0
+# return my_voice
 
 
 
