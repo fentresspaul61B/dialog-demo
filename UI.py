@@ -28,6 +28,9 @@ def load_settings():
 
    # Setting the API set_api_key
 
+
+loud_settings()
+
 set_api_key(ELEVEN_LABS_TOKEN)
 voices = Voices.from_api()
 my_voice = voices[-1]
