@@ -27,9 +27,9 @@ def load_settings():
 
 
    # Setting the API set_api_key
+    return ELEVEN_LABS_TOKEN
 
-
-load_settings()
+ELEVEN_LABS_TOKEN = load_settings()
 
 set_api_key(ELEVEN_LABS_TOKEN)
 voices = Voices.from_api()
