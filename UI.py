@@ -85,7 +85,7 @@ if audio_bytes:
     )
         
     # 9. Play the eleven labs audio.
-    play(audio)
+    # play(audio)
     end = time.time()
     st.write(end - start)
 
@@ -110,7 +110,7 @@ if st.button("Test Speakers"):
     )
         
     # 9. Play the eleven labs audio.
-    play(audio)
+    # play(audio)
     end = time.time()
     st.write(end - start)
 
