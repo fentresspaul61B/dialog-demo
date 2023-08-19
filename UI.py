@@ -2,6 +2,40 @@ import streamlit as st
 from audio_recorder_streamlit import audio_recorder
 import base64
 
+# Eleven labs is used for generating realistic sound speech.
+from elevenlabs import generate, play, Voices
+from elevenlabs import set_api_key
+from elevenlabs.api import Voices
+
+import json
+
+import time
+
+
+@st.cache_data()
+def load_settings():
+    # Extracting the eleven labs token
+    with open("secrets.json") as f:
+        ELEVEN_LABS_TOKEN = json.load(f)["ELEVEN_LABS_TOKEN"]
+
+    # Setting the API key
+    set_api_key(ELEVEN_LABS_TOKEN)
+
+    voices = Voices.from_api()
+    my_voice = voices[-1]
+    my_voice.settings.stability = 1.0
+    my_voice.settings.similarity_boost = 1.0
+
+    return my_voice
+
+start = time.time()
+my_voice = load_settings()
+end = time.time()
+st.write(end - start)
+
+
+
+
 
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
@@ -24,7 +58,23 @@ audio_bytes = audio_recorder()
 if audio_bytes:
     # st.audio(audio_bytes, format="audio/wav")
      
-    autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
+    # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
+
+    start = time.time()
+    response = "My response."
+
+    # 8. Send text to Eleven Labs API.
+    audio = generate(
+        text=response,
+        voice=my_voice,
+        model="eleven_monolingual_v1"
+    )
+        
+    # 9. Play the eleven labs audio.
+    play(audio)
+    end = time.time()
+    st.write(end - start)
+
     # Embed audio with autoplay
     
 
