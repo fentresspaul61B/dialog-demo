@@ -66,7 +66,7 @@ def autoplay_audio_from_bytes(audio_data: bytes):
         md,
         unsafe_allow_html=True,
     )
-
+    st.experimental_rerun()
 
 audio_bytes = audio_recorder()
 if audio_bytes:
