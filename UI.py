@@ -86,8 +86,8 @@ if audio_bytes:
     with open('myfile.wav', mode='wb') as f:
         f.write(audio)
 
-    autoplay_audio("myfile.wav")
-
+    # autoplay_audio("myfile.wav")
+    autoplay_audio(audio)
 if st.button("Test Speakers"):
     autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
     # Embed audio with autoplay
