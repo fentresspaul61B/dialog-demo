@@ -83,7 +83,7 @@ if audio_bytes:
     st.write(end - start)
 
     # Embed audio with autoplay
-    with open('myfile.wav', mode='bx') as f:
+    with open('myfile.wav', mode='wb') as f:
         f.write(audio)
 
     autoplay_audio("myfile.wav")
