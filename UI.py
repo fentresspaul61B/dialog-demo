@@ -59,6 +59,17 @@ def autoplay_audio(file_path: str):
         )
 
 
+def autoplay_audio_from_bytes(audio_data: bytes):
+    b64 = base64.b64encode(audio_data).decode()
+    md = f"""
+        <audio autoplay="true">
+        <source src="data:audio/wav;base64,{b64}" type="audio/wav">
+        </audio>
+        """
+    st.markdown(
+        md,
+        unsafe_allow_html=True,
+    )
 
 
 audio_bytes = audio_recorder()
@@ -87,7 +98,7 @@ if audio_bytes:
     #     f.write(audio)
 
     # autoplay_audio("myfile.wav")
-    autoplay_audio(audio)
+    autoplay_audio_from_bytes(audio)
 if st.button("Test Speakers"):
     autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
     # Embed audio with autoplay
