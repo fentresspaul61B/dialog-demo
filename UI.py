@@ -16,31 +16,12 @@ from pydub.utils import mediainfo
 
 
 from st_helpers.audio_helpers import load_eleven_labs_voice
-
+from st_helpers.audio_helpers import autoplay_audio_from_bytes
 
 LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
 
 
 my_voice = load_eleven_labs_voice()
-
-
-def autoplay_audio_from_bytes(audio_data: bytes):
-    """
-    Autoplays audio from a byte string.
-    """
-
-    b64 = base64.b64encode(audio_data).decode()
-    md = f"""
-        <audio autoplay="true">
-        <source src="data:audio/wav;base64,{b64}" type="audio/wav">
-        </audio>
-        """
-    st.markdown(
-        md,
-        unsafe_allow_html=True,
-    )
-    # st.experimental_rerun()
-
 
 def get_audio_duration(filename: str) -> float:
     """Get the duration of an audio file in seconds."""
