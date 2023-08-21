@@ -52,7 +52,8 @@ def autoplay_audio(file_path: str):
             md,
             unsafe_allow_html=True,
         )
-    st.experimental_rerun() 
+    # st.experimental_rerun() 
+
 
 def autoplay_audio_from_bytes(audio_data: bytes):
     b64 = base64.b64encode(audio_data).decode()
@@ -69,7 +70,7 @@ def autoplay_audio_from_bytes(audio_data: bytes):
 
 
 audio_bytes = None
-# audio_bytes = audio_recorder()
+audio_bytes = audio_recorder()
 
 
 if audio_bytes:
