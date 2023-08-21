@@ -107,6 +107,14 @@ if audio_bytes:
     # autoplay_audio_from_bytes(audio)
 
 
+def get_wav_duration(filename):
+    with contextlib.closing(wave.open(filename,'r')) as f:
+        frames = f.getnframes()
+        rate = f.getframerate()
+        duration = frames / float(rate)
+        return duration
+
+
 if st.button("Test Speakers"):
     # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
     # Embed audio with autoplay
@@ -132,6 +140,10 @@ if st.button("Test Speakers"):
 
     autoplay_audio(LOCAL_AUDIO)
     # autoplay_audio_from_bytes(audio)
-    
+   
+    nap_time = get_wav_duration(LOCAL_AUDIO)
+
+    time.sleep(nap_time)
+
     st.experimental_rerun()
     
