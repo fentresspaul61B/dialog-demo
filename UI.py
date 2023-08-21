@@ -77,7 +77,7 @@ def autoplay_audio_from_bytes(audio_data: bytes):
     # st.experimental_rerun()
 
 
-audio_bytes = audio_recorder()
+audio_bytes = audio_recorder(key="123")
 
 
 # Check if the session state has the 'processed' attribute
