@@ -7,7 +7,7 @@ from elevenlabs import generate, play, Voices
 from elevenlabs import set_api_key
 from elevenlabs.api import Voices
 
-import librosa
+# import librosa
 
 import json
 
