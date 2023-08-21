@@ -21,7 +21,7 @@ from st_helpers.audio_helpers import load_eleven_labs_voice
 LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
 
 
-my_voice = load_elevel_labs_voice()
+my_voice = load_eleven_labs_voice()
 
 
 def autoplay_audio_from_bytes(audio_data: bytes):
