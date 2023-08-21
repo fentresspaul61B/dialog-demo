@@ -33,7 +33,10 @@ my_voice = load_eleven_labs_voice()
 
 # Audio recording button. Have to set key manually, so widgets do not 
 # conflict with eachother.
-audio_bytes = audio_recorder(key="123")
+audio_bytes = audio_recorder(
+        key="123", 
+        icon_name="microphone"
+)
 
 
 # Check if the session state has the 'processed' attribute
