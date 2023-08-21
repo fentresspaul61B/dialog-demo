@@ -133,5 +133,5 @@ if st.button("Test Speakers"):
     autoplay_audio(LOCAL_AUDIO)
     # autoplay_audio_from_bytes(audio)
     
-    # st.experimental_rerun()
+    st.experimental_rerun()
     
