@@ -31,6 +31,7 @@ from st_helpers.audio_helpers import generate_eleven_labs_audio
 my_voice = load_eleven_labs_voice()
 
 
+st.text("Press the button below to record audio.")
 # Audio recording button. Have to set key manually, so widgets do not 
 # conflict with eachother.
 audio_bytes = audio_recorder(
