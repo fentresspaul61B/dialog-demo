@@ -10,8 +10,10 @@ from elevenlabs.api import Voices
 # import librosa
 
 import json
-
 import time
+
+from pydub.utils import mediainfo
+
 
 
 LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
@@ -46,22 +48,6 @@ def load_settings():
 my_voice = load_settings()
 
 
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <audio autoplay="true">
-            <source src="data:audio/wav;base64,{b64}" type="audio/wav">
-            </audio>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
-    # st.experimental_rerun() 
-
-
 def autoplay_audio_from_bytes(audio_data: bytes):
     b64 = base64.b64encode(audio_data).decode()
     md = f"""
@@ -76,9 +62,6 @@ def autoplay_audio_from_bytes(audio_data: bytes):
     # st.experimental_rerun()
 
 
-
-from pydub.utils import mediainfo
-
 def get_audio_duration(filename: str) -> float:
     """Get the duration of an audio file in seconds."""
     info = mediainfo(filename)
@@ -86,7 +69,7 @@ def get_audio_duration(filename: str) -> float:
     return duration
 
 
-
+# Audio recording button.
 audio_bytes = audio_recorder(key="123")
 
 
