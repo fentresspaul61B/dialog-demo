@@ -7,8 +7,7 @@ from elevenlabs import generate, play, Voices
 from elevenlabs import set_api_key
 from elevenlabs.api import Voices
 
-import wave
-import contextlib
+import librosa
 
 import json
 
@@ -101,7 +100,14 @@ if audio_bytes and not st.session_state.processed:
     end = time.time()
     st.write(end - start)
     autoplay_audio_from_bytes(audio)
-    time.sleep(3)
+   
+    # Convert audio bytes into .wav.
+     with open('myfile.wav', mode='wb') as f:
+        f.write(audio)
+
+    sleep_time = librosa.get_duration(filename='myfile.wav')
+
+    time.sleep(sleep_time)
 
     # Set the 'processed' flag
     st.session_state.processed = True
@@ -112,8 +118,6 @@ if audio_bytes and not st.session_state.processed:
 # Reset audio_bytes and processed flag for the next interaction
 audio_bytes = None
 st.session_state.processed = False
-
-
 
 
 def get_wav_duration(filename):
@@ -144,8 +148,8 @@ if st.button("Test Speakers"):
     st.write(end - start)
 
     # Embed audio with autoplay
-    # with open('myfile.wav', mode='wb') as f:
-    #     f.write(audio)
+    with open('myfile.wav', mode='wb') as f:
+        f.write(audio)
 
     autoplay_audio(LOCAL_AUDIO)
     # autoplay_audio_from_bytes(audio)
