@@ -84,7 +84,7 @@ audio_bytes = audio_recorder(key="123")
 if not hasattr(st.session_state, 'processed'):
     st.session_state.processed = False
 
-audio_bytes = audio_recorder()
+# audio_bytes = audio_recorder()
 
 # Only process if the 'processed' flag is not set
 if audio_bytes and not st.session_state.processed:
