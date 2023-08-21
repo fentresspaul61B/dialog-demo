@@ -14,35 +14,11 @@ import time
 
 from pydub.utils import mediainfo
 
-from st_helpers.audio_helpers import load_elevel_labs_voice
+
+from st_helpers.audio_helpers import load_eleven_labs_voice
+
 
 LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
-
-
-@st.cache_data()
-def load_elevel_labs_voice():
-    
-    # Extracting the eleven labs token
-    
-    try:
-        ELEVEN_LABS_TOKEN = st.secrets["ELEVEN_LABS_TOKEN"]
-    
-    except Exception as error:
-
-        with open("secrets.json") as f:
-            ELEVEN_LABS_TOKEN = json.load(f)["ELEVEN_LABS_TOKEN"]
-
-
-   # Setting the API set_api_key
-
-    
-    set_api_key(ELEVEN_LABS_TOKEN)
-    voices = Voices.from_api()  
-    my_voice = voices[-1]
-    my_voice.settings.stability = 1.0
-    my_voice.settings.similarity_boost = 1.0
-    
-    return my_voice
 
 
 my_voice = load_elevel_labs_voice()

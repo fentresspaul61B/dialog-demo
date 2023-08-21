@@ -15,7 +15,7 @@ from pydub.utils import mediainfo
 
 
 @st.cache_data()
-def load_elevel_labs_voice():
+def load_eleven_labs_voice():
     """
     Loads and configures a voice from eleven labs.
     """
