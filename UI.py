@@ -78,7 +78,7 @@ def autoplay_audio_from_bytes(audio_data: bytes):
 
 
 audio_bytes = None
-# audio_bytes = audio_recorder()
+audio_bytes = audio_recorder()
 
 
 if audio_bytes:
@@ -105,8 +105,12 @@ if audio_bytes:
     # with open('myfile.wav', mode='wb') as f:
     #     f.write(audio)
 
-    autoplay_audio(LOCAL_AUDIO)
-    # autoplay_audio_from_bytes(audio)
+    # autoplay_audio(LOCAL_AUDIO)
+    autoplay_audio_from_bytes(audio)
+    
+    time.sleep(3)
+
+    st.experimental_rerun()
 
 
 def get_wav_duration(filename):
