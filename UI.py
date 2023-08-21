@@ -39,7 +39,6 @@ my_voice.settings.similarity_boost = 1.0
 # return my_voice
 
 
-
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -67,8 +66,12 @@ def autoplay_audio_from_bytes(audio_data: bytes):
         unsafe_allow_html=True,
     )
     # st.experimental_rerun()
+
+
 audio_bytes = None
-audio_bytes = audio_recorder()
+# audio_bytes = audio_recorder()
+
+
 if audio_bytes:
     # st.audio(audio_bytes, format="audio/wav")
      
@@ -95,6 +98,8 @@ if audio_bytes:
 
     # autoplay_audio("myfile.wav")
     autoplay_audio_from_bytes(audio)
+
+
 if st.button("Test Speakers"):
     # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
     # Embed audio with autoplay
