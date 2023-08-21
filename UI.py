@@ -35,7 +35,9 @@ my_voice = load_eleven_labs_voice()
 # conflict with eachother.
 audio_bytes = audio_recorder(
         key="123", 
-        icon_name="microphone"
+        icon_name="microphone",
+        recording_color="#e8b62c",
+        neutral_color="#6aa36f",
 )
 
 
