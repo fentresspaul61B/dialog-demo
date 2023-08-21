@@ -14,13 +14,13 @@ import time
 
 from pydub.utils import mediainfo
 
-
+from st_helpers.audio_helpers import load_elevel_labs_voice
 
 LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
 
 
 @st.cache_data()
-def load_settings():
+def load_elevel_labs_voice():
     
     # Extracting the eleven labs token
     
@@ -45,10 +45,14 @@ def load_settings():
     return my_voice
 
 
-my_voice = load_settings()
+my_voice = load_elevel_labs_voice()
 
 
 def autoplay_audio_from_bytes(audio_data: bytes):
+    """
+    Autoplays audio from a byte string.
+    """
+
     b64 = base64.b64encode(audio_data).decode()
     md = f"""
         <audio autoplay="true">
