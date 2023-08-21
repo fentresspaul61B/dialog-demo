@@ -12,7 +12,10 @@ import json
 import time
 
 
-# @st.cache_data()
+LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
+
+
+@st.cache_data()
 def load_settings():
     
     # Extracting the eleven labs token
@@ -27,16 +30,19 @@ def load_settings():
 
 
    # Setting the API set_api_key
+
+    
+    set_api_key(ELEVEN_LABS_TOKEN)
+    voices = Voices.from_api()  
+    my_voice = voices[-1]
+    my_voice.settings.stability = 1.0
+    my_voice.settings.similarity_boost = 1.0
+
+    
     return ELEVEN_LABS_TOKEN
 
-ELEVEN_LABS_TOKEN = load_settings()
 
-set_api_key(ELEVEN_LABS_TOKEN)
-voices = Voices.from_api()
-my_voice = voices[-1]
-my_voice.settings.stability = 1.0
-my_voice.settings.similarity_boost = 1.0
-# return my_voice
+load_settings()
 
 
 def autoplay_audio(file_path: str):
@@ -97,8 +103,8 @@ if audio_bytes:
     # with open('myfile.wav', mode='wb') as f:
     #     f.write(audio)
 
-    # autoplay_audio("myfile.wav")
-    autoplay_audio_from_bytes(audio)
+    autoplay_audio(LOCAL_AUDIO)
+    # autoplay_audio_from_bytes(audio)
 
 
 if st.button("Test Speakers"):
@@ -124,8 +130,8 @@ if st.button("Test Speakers"):
     # with open('myfile.wav', mode='wb') as f:
     #     f.write(audio)
 
-    # autoplay_audio("myfile.wav")
-    autoplay_audio_from_bytes(audio)
+    autoplay_audio(LOCAL_AUDIO)
+    # autoplay_audio_from_bytes(audio)
     
     # st.experimental_rerun()
     
