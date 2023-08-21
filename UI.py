@@ -75,8 +75,37 @@ def autoplay_audio_from_bytes(audio_data: bytes):
     # st.experimental_rerun()
 
 
-audio_bytes = None
-audio_bytes = audio_recorder()
+# audio_bytes = None
+# audio_bytes = audio_recorder()
+
+
+if audio_bytes:
+    # st.audio(audio_bytes, format="audio/wav")
+     
+    # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
+
+    start = time.time()
+    response = "My response."
+
+    # 8. Send text to Eleven Labs API.
+    audio = generate(
+        text=response,
+        voice=my_voice,
+        model="eleven_monolingual_v1"
+    )
+        
+    # 9. Play the eleven labs audio.
+    # play(audio)
+    end = time.time()
+    st.write(end - start)
+
+    # Embed audio with autoplay
+    # with open('myfile.wav', mode='wb') as f:
+    #     f.write(audio)
+
+    autoplay_audio(LOCAL_AUDIO)
+    # autoplay_audio_from_bytes(audio)
+
 
 if st.button("Test Speakers"):
     # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
