@@ -40,6 +40,19 @@ def load_eleven_labs_voice():
     return my_voice
 
 
+def generate_eleven_labs_audio(text: str, voice:) -> bytes:
+    """
+    Generates realistic speech from eleven labs API, and returns audio 
+    bytes.
+    """
+    audio = generate(
+        text=text,
+        voice=my_voice,
+        model="eleven_monolingual_v1"
+    )
+    return audio
+
+
 def autoplay_audio_from_bytes(audio_data: bytes):
     """
     Autoplays audio from a byte string.

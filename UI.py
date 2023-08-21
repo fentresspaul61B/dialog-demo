@@ -17,19 +17,11 @@ from pydub.utils import mediainfo
 
 from st_helpers.audio_helpers import load_eleven_labs_voice
 from st_helpers.audio_helpers import autoplay_audio_from_bytes
-
-LOCAL_AUDIO = "ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav"
+from st_helpers.audio_helpers import get_audio_duration
+from st_helpers.audio_helpers import generate_eleven_labs_audio 
 
 
 my_voice = load_eleven_labs_voice()
-
-def get_audio_duration(filename: str) -> float:
-    """Get the duration of an audio file in seconds."""
-    info = mediainfo(filename)
-    duration = float(info['duration'])
-    return duration
-
-
 # Audio recording button.
 audio_bytes = audio_recorder(key="123")
 
@@ -45,12 +37,16 @@ if audio_bytes and not st.session_state.processed:
     start = time.time()
     response = "My response."
 
+
+    audio = generate_eleven_labs_audio(response, my_voice)
+
+
     # Send text to Eleven Labs API.
-    audio = generate(
-        text=response,
-        voice=my_voice,
-        model="eleven_monolingual_v1"
-    )
+    #audio = generate(
+     #   text=response,
+      #  voice=my_voice,
+       # model="eleven_monolingual_v1"
+    #)
     
     end = time.time()
     st.write(end - start)
