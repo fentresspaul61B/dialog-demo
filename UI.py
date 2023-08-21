@@ -39,10 +39,10 @@ def load_settings():
     my_voice.settings.similarity_boost = 1.0
 
     
-    return ELEVEN_LABS_TOKEN
+    return my_voice
 
 
-load_settings()
+my_voice = load_settings()
 
 
 def autoplay_audio(file_path: str):
