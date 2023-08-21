@@ -102,7 +102,7 @@ if audio_bytes and not st.session_state.processed:
     autoplay_audio_from_bytes(audio)
    
     # Convert audio bytes into .wav.
-     with open('myfile.wav', mode='wb') as f:
+    with open('myfile.wav', mode='wb') as f:
         f.write(audio)
 
     sleep_time = librosa.get_duration(filename='myfile.wav')
