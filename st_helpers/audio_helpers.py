@@ -40,7 +40,7 @@ def load_eleven_labs_voice():
     return my_voice
 
 
-def generate_eleven_labs_audio(text: str, voice:) -> bytes:
+def generate_eleven_labs_audio(text: str, voice: str) -> bytes:
     """
     Generates realistic speech from eleven labs API, and returns audio 
     bytes.
