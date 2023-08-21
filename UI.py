@@ -43,13 +43,11 @@ if not hasattr(st.session_state, 'processed'):
 
 # Only process if the 'processed' flag is not set
 if audio_bytes and not st.session_state.processed:
-    start = time.time()
     response = "My response."
 
 
     audio = generate_eleven_labs_audio(response, my_voice)
     
-    st.write(end - start)
     
     autoplay_audio_from_bytes(audio)
    
