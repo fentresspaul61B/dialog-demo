@@ -76,6 +76,23 @@ def autoplay_audio_from_bytes(audio_data: bytes):
     # st.experimental_rerun()
 
 
+
+import wave
+import contextlib
+
+def get_wav_duration(filename: str) -> float:
+    with contextlib.closing(wave.open(filename, 'r')) as f:
+        frames = f.getnframes()
+        rate = f.getframerate()
+        duration = frames / float(rate)
+        return duration
+
+# Example usage:
+filename = "myfile.wav"
+duration = get_wav_duration(filename)
+print(f"Duration of {filename} is {duration} seconds.")
+
+
 audio_bytes = audio_recorder(key="123")
 
 
@@ -105,7 +122,7 @@ if audio_bytes and not st.session_state.processed:
     with open('myfile.wav', mode='wb') as f:
         f.write(audio)
 
-    sleep_time = librosa.get_duration(filename='myfile.wav')
+    sleep_time = get_wav_duration("myfile.wav")
 
     time.sleep(sleep_time)
 
