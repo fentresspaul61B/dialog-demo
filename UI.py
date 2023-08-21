@@ -40,7 +40,6 @@ def load_settings():
     my_voice = voices[-1]
     my_voice.settings.stability = 1.0
     my_voice.settings.similarity_boost = 1.0
-
     
     return my_voice
 
@@ -144,9 +143,9 @@ if st.button("Test Speakers"):
     autoplay_audio(LOCAL_AUDIO)
     # autoplay_audio_from_bytes(audio)
    
-    nap_time = get_wav_duration(LOCAL_AUDIO)
+    # nap_time = get_wav_duration(LOCAL_AUDIO)
 
-    time.sleep(nap_time)
+    time.sleep(3)
 
     st.experimental_rerun()
     
