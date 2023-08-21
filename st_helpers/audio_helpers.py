@@ -47,7 +47,7 @@ def generate_eleven_labs_audio(text: str, voice: str) -> bytes:
     """
     audio = generate(
         text=text,
-        voice=my_voice,
+        voice=voice,
         model="eleven_monolingual_v1"
     )
     return audio
