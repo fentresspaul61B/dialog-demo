@@ -130,44 +130,4 @@ if audio_bytes and not st.session_state.processed:
 audio_bytes = None
 st.session_state.processed = False
 
-
-def get_wav_duration(filename):
-    with contextlib.closing(wave.open(filename,'r')) as f:
-        frames = f.getnframes()
-        rate = f.getframerate()
-        duration = frames / float(rate)
-        return duration
-
-
-if st.button("Test Speakers"):
-    # autoplay_audio("ElevenLabs_2023-08-11T04_12_56.000Z_Julie_C2md8UcNeLKcOBWEB71e.wav")
-    # Embed audio with autoplay
-    
-    start = time.time()
-    response = "My response."
-
-    # 8. Send text to Eleven Labs API.
-    audio = generate(
-        text=response,
-        voice=my_voice,
-        model="eleven_monolingual_v1"
-    )
-        
-    # 9. Play the eleven labs audio.
-    # play(audio)
-    end = time.time()
-    st.write(end - start)
-
-    # Embed audio with autoplay
-    with open('myfile.wav', mode='wb') as f:
-        f.write(audio)
-
-    autoplay_audio(LOCAL_AUDIO)
-    # autoplay_audio_from_bytes(audio)
    
-    # nap_time = get_wav_duration(LOCAL_AUDIO)
-
-    time.sleep(3)
-
-    st.experimental_rerun()
-    
