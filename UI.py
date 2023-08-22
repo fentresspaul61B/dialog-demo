@@ -26,25 +26,9 @@ from st_helpers.audio_helpers import autoplay_audio_from_bytes
 from st_helpers.audio_helpers import get_audio_duration
 from st_helpers.audio_helpers import generate_eleven_labs_audio 
 from st_helpers.audio_helpers import set_open_ai_token 
-# Openai used for whisper and GPT
-import openai
-
-    
-try:
-    OPEN_AI_TOKEN = st.secrets["OPEN_AI_TOKEN"]
-    
-except Exception as error:
-
-    with open("secrets.json") as f:
-        OPEN_AI_TOKEN = json.load(f)["OPEN_AI_TOKEN"]
-
-    
 
 
-# Setting the Open AI Key
-openai.api_key = OPEN_AI_TOKEN
-
-
+set_open_ai_token()
 
 # Instantiating ElevenLabs voice.
 my_voice = load_eleven_labs_voice()
@@ -71,7 +55,7 @@ if not hasattr(st.session_state, 'processed'):
 if audio_bytes and not st.session_state.processed:
     
 
-    with open("response.wav", mode="wb") as fp:
+    with open("TTS.wav", mode="rb") as fp:
         response = openai.Audio.translate("whisper-1", fp)
 
     # response = "My response."
@@ -83,12 +67,12 @@ if audio_bytes and not st.session_state.processed:
     autoplay_audio_from_bytes(audio)
    
     # Convert audio bytes into .wav.
-    with open('myfile.wav', mode='wb') as f:
+    with open('STT.wav', mode='wb') as f:
         f.write(audio)
 
     # Sleep time is used, so that st does not re run until audio is 
     # finished playing.
-    sleep_time = get_audio_duration("myfile.wav")
+    sleep_time = get_audio_duration("STT.wav")
 
     time.sleep(sleep_time)
 

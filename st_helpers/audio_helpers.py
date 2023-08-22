@@ -16,6 +16,7 @@ from pydub.utils import mediainfo
 import openai
 
 
+@st.cache_data()
 def set_open_ai_token():
     """
     Configures open AI token.
