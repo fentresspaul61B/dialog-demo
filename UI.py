@@ -63,7 +63,8 @@ if audio_bytes and not st.session_state.processed:
     # Reading from the file and translating
     with open("TTS.wav", mode="rb") as f:  # Notice "rb" mode for reading bytes
         response = openai.Audio.translate("whisper-1", f)["text"]
-
+    
+    st.write(response)
     # Creating audio byte string.
     audio = generate_eleven_labs_audio(response, my_voice)
     
