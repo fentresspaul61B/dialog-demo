@@ -28,7 +28,7 @@ from st_helpers.audio_helpers import generate_eleven_labs_audio
 from st_helpers.audio_helpers import set_open_ai_token 
 
 
-import opoenai
+import openai
 
 set_open_ai_token()
 
