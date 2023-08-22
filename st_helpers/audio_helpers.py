@@ -16,6 +16,31 @@ from pydub.utils import mediainfo
 import openai
 
 
+CONTEXT_PROMPT = """You are a helpful assistant named Julie."""
+
+
+def get_chat_gpt_response(prompt, context=CONTEXT_PROMPT):
+    """
+    Calls the chat GPT API with context.
+    """
+    
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[
+            {
+                "role": "system",
+                "content": context
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    return response['choices'][0]["message"]["content"]
+
+
 @st.cache_data()
 def set_open_ai_token():
     """

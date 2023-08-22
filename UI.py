@@ -26,6 +26,7 @@ from st_helpers.audio_helpers import autoplay_audio_from_bytes
 from st_helpers.audio_helpers import get_audio_duration
 from st_helpers.audio_helpers import generate_eleven_labs_audio 
 from st_helpers.audio_helpers import set_open_ai_token 
+from st_helpers.audio_helpers import get_chat_gpt_response  
 
 
 import openai
@@ -66,7 +67,12 @@ if audio_bytes and not st.session_state.processed:
     
     st.write(response)
     # Creating audio byte string.
-    audio = generate_eleven_labs_audio(response, my_voice)
+
+    # Generate GPP response:
+
+    chatbot_response = get_chat_gpt_response(response)
+
+    audio = generate_eleven_labs_audio(chatbot_response, my_voice)
     
     # Custom auto play function, made for streamlit.   
     autoplay_audio_from_bytes(audio)
