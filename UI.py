@@ -77,14 +77,14 @@ if user_input == st.secrets["DEVA_USER_PW"]:
 
         DIALOG.append({"user": response})
 
-        st.chat_input(response)
+        # st.chat_input(response)
         # Generate GPP response:
 
         chatbot_response = get_chat_gpt_response(response)
  
         DIALOG.append({"chat_bot": chatbot_response})
 
-        st.chat_message(chatbot_response)
+        # st.chat_message(chatbot_response)
 
         audio = generate_eleven_labs_audio(chatbot_response, my_voice)
         
