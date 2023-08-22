@@ -71,12 +71,12 @@ if user_input == st.secrets["DEVA_USER_PW"]:
             response = openai.Audio.translate("whisper-1", f)["text"]
         
         # Creating audio byte string.
-
+        st.chat_input(response)
         # Generate GPP response:
 
         chatbot_response = get_chat_gpt_response(response)
 
-        st.write(chatbot_response)
+        st.chat_message(chatbot_response)
 
         audio = generate_eleven_labs_audio(chatbot_response, my_voice)
         
