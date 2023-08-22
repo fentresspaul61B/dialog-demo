@@ -39,13 +39,12 @@ my_voice = load_eleven_labs_voice()
 user_input = st.text_input("Enter Password", type="password")
 
 if user_input == st.secrets["DEVA_USER_PW"]:
-    st.write("PW correct")
- 
-
+    
+    # If the password is correct, then the dialog can start.
 
     st.write("Press the button below to record audio.")
-# Audio recording button. Have to set key manually, so widgets do not 
-# conflict with eachother.
+    # Audio recording button. Have to set key manually, so widgets do 
+    # not conflict with eachother.
     audio_bytes = audio_recorder(
             key="123", 
             icon_name="square",
@@ -68,15 +67,16 @@ if user_input == st.secrets["DEVA_USER_PW"]:
             f.write(audio_bytes)
 
         # Reading from the file and translating
-        with open("TTS.wav", mode="rb") as f:  # Notice "rb" mode for reading bytes
+        with open("TTS.wav", mode="rb") as f:  
             response = openai.Audio.translate("whisper-1", f)["text"]
         
-        st.write(response)
         # Creating audio byte string.
 
         # Generate GPP response:
 
         chatbot_response = get_chat_gpt_response(response)
+
+        st.write(chatbot_response)
 
         audio = generate_eleven_labs_audio(chatbot_response, my_voice)
         
