@@ -25,9 +25,26 @@ from st_helpers.audio_helpers import load_eleven_labs_voice
 from st_helpers.audio_helpers import autoplay_audio_from_bytes
 from st_helpers.audio_helpers import get_audio_duration
 from st_helpers.audio_helpers import generate_eleven_labs_audio 
-
+from st_helpers.audio_helpers import set_open_ai_token 
 # Openai used for whisper and GPT
 import openai
+
+    
+try:
+    OPEN_AI_TOKEN = st.secrets["OPEN_AI_TOKEN"]
+    
+except Exception as error:
+
+    with open("secrets.json") as f:
+        OPEN_AI_TOKEN = json.load(f)["OPEN_AI_TOKEN"]
+
+    
+
+
+# Setting the Open AI Key
+openai.api_key = OPEN_AI_TOKEN
+
+
 
 # Instantiating ElevenLabs voice.
 my_voice = load_eleven_labs_voice()

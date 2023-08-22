@@ -13,6 +13,27 @@ import time
 
 from pydub.utils import mediainfo
 
+import openai
+
+
+def set_open_ai_token():
+    """
+    Configures open AI token.
+    """    
+    # Openai used for whisper and GPT
+    
+    try:
+        OPEN_AI_TOKEN = st.secrets["OPEN_AI_TOKEN"]
+    
+    except Exception as error:
+
+        with open("secrets.json") as f:
+            OPEN_AI_TOKEN = json.load(f)["OPEN_AI_TOKEN"]
+
+    # Setting the Open AI Key
+    openai.api_key = OPEN_AI_TOKEN
+    
+
 
 @st.cache_data()
 def load_eleven_labs_voice():
