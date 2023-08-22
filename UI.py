@@ -31,6 +31,8 @@ from st_helpers.audio_helpers import get_chat_gpt_response
 
 import openai
 
+DIALOG = []
+
 set_open_ai_token()
 
 # Instantiating ElevenLabs voice.
@@ -70,16 +72,25 @@ if user_input == st.secrets["DEVA_USER_PW"]:
         with open("TTS.wav", mode="rb") as f:  
             response = openai.Audio.translate("whisper-1", f)["text"]
         
+        
         # Creating audio byte string.
+
+        DIALOG.append({"user": response})
+
         st.chat_input(response)
         # Generate GPP response:
 
         chatbot_response = get_chat_gpt_response(response)
+ 
+        DIALOG.append({"chat_bot": chatbot_response})
 
         st.chat_message(chatbot_response)
 
         audio = generate_eleven_labs_audio(chatbot_response, my_voice)
         
+
+        st.write(DIALOG)
+
         # Custom auto play function, made for streamlit.   
         autoplay_audio_from_bytes(audio)
        
