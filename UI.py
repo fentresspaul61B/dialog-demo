@@ -48,6 +48,11 @@ audio_bytes = audio_recorder(
         text=""
 )
 
+user_input = st.text_input("Enter Password")
+
+if user_input == st.secrets["DEVA_USER_PW"]:
+    st.write("PW correct")
+    
 
 # Check if the session state has the 'processed' attribute
 if not hasattr(st.session_state, 'processed'):
