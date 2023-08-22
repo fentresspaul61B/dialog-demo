@@ -56,14 +56,13 @@ if not hasattr(st.session_state, 'processed'):
 # Only process if the 'processed' flag is not set
 if audio_bytes and not st.session_state.processed:
     
-
+    # Writing audio bytes to the file
     with open("TTS.wav", mode="wb") as f:
-
         f.write(audio_bytes)
 
+    # Reading from the file and translating
+    with open("TTS.wav", mode="rb") as f:  # Notice "rb" mode for reading bytes
         response = openai.Audio.translate("whisper-1", f)["text"]
-        
-        # response = "My response."
 
     # Creating audio byte string.
     audio = generate_eleven_labs_audio(response, my_voice)
