@@ -51,9 +51,12 @@ def main():
     if user_input == st.secrets["DEVA_USER_PW"]:
         
         
-        context = st.text_input("Enter Context")
+        context = st.text_area("Enter Context")
 
-        patient_background = st.text_input("Enter Patient Background")
+        patient_background = st.text_area(
+            "Enter Patient Background",
+            height = 30,
+        )
 
         # If the password is correct, then the dialog can start.
 
