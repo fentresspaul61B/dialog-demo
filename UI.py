@@ -102,8 +102,8 @@ def main():
 
             audio = generate_eleven_labs_audio(chatbot_response, my_voice)
             
-
-            st.write(DIALOG)
+            
+            # st.write(DIALOG)
 
             # Custom auto play function, made for streamlit.   
             autoplay_audio_from_bytes(audio)
