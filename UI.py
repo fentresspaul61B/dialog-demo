@@ -44,11 +44,14 @@ def main():
     Runs dialog after password is confirmed.
     """
 
+    if not hasattr(st.session_state, 'password_validated'):
+        st.session_state.password_validated = False
 
-    user_input = st.text_input("Enter Password", type="password")
+    if not st.session_state.password_validated:
+        user_input = st.text_input("Enter Password", type="password")
 
     if user_input == st.secrets["DEVA_USER_PW"]:
-        
+        st.session_state.password_validated = True     
         # If the password is correct, then the dialog can start.
 
         st.write("Press the button below to record audio.")
