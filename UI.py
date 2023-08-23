@@ -44,17 +44,17 @@ def main():
     Runs dialog after password is confirmed.
     """
     
-    password_placeholder = st.empty()
+    st.title("Mentia Statistical Dialog Model")
 
-    if not hasattr(st.session_state, 'password_validated'):
-        st.session_state.password_validated = False
+    user_input = st.text_input("Enter Password", type="password")
 
-    if not st.session_state.password_validated:
-        user_input = password_placeholder.text_input("Enter Password", type="password")
+    if user_input == st.secrets["DEVA_USER_PW"]:
+        
+        
+        context = st.text_input("Enter Context")
 
-    if user_input == st.secrets["DEVA_USER_PW"] or st.session_state.password_validated:
-        st.session_state.password_validated = True
-        password_placeholder.empty()
+        patient_background = st.text_input("Enter Patient Background")
+
         # If the password is correct, then the dialog can start.
 
         st.write("Press the button below to record audio.")
