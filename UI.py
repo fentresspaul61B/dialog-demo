@@ -50,7 +50,7 @@ def main():
     if not st.session_state.password_validated:
         user_input = st.text_input("Enter Password", type="password")
 
-    if user_input == st.secrets["DEVA_USER_PW"]:
+    if user_input == st.secrets["DEVA_USER_PW"] or st.session_state.password_validated:
         st.session_state.password_validated = True     
         # If the password is correct, then the dialog can start.
 
