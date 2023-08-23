@@ -96,7 +96,10 @@ def main():
             # st.chat_input(response)
             # Generate GPP response:
 
-            chatbot_response = get_chat_gpt_response(response)
+            chatbot_response = get_chat_gpt_response(
+                response, 
+                context=context
+            )
      
             DIALOG.append({"chat_bot": chatbot_response})
 
