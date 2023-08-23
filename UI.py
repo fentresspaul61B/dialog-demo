@@ -53,11 +53,6 @@ def main():
         
         context = st.text_area("Enter Context")
 
-        patient_background = st.text_area(
-            "Enter Patient Background",
-            height = 30,
-        )
-
         # If the password is correct, then the dialog can start.
 
         st.write("Press the button below to record audio.")
