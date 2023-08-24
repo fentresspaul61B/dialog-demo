@@ -15,8 +15,85 @@ from pydub.utils import mediainfo
 
 import openai
 
+from langchain.chains.conversation.memory import ConversationSummaryMemory
+from langchain import OpenAI
+from langchain.chains import ConversationChain
+from langchain.prompts.prompt import PromptTemplate
+from langchain.chat_models import ChatOpenAI
 
-CONTEXT_PROMPT = """You are a helpful assistant named Julie."""
+import os
+
+CONTEXT_PROMPT = """You are a helpful assistant."""
+
+
+template = """The following is a friendly conversation between a human and an AI. The AI is not talkative, and gives concise questions and answers. 
+In this conversation the AI is role playing as a compassionate caregiver, who is having a conversation with a Dementia patient named Pat.
+
+Here is some background information about Pat, that you should use to ask 
+engaging questions for your conversation. 
+
+Pat Family life: Pat was born in 1935 in New York City. They have a close-knit 
+and supportive family. Pat is a proud member of their family and cherishes their 
+relationships with loved ones. Professional life: Pat had a long and successful 
+career. They were dedicated to helping people. Community life: Pat actively 
+participated in community service activities. They volunteered and organized
+fundraising events for various charitable causes. Pleasures and dislikes: Pat 
+enjoys spending time outdoors, going for walks, and appreciating nature. They 
+have a passion for photography and capturing the beauty of the world around 
+them. Beliefs and values: Pat holds strong humanist beliefs and values. They 
+believe in the importance of treating others with kindness, empathy, and 
+respect. Pat lives by the principle of treating others as they would like to be 
+treated, fostering harmony and understanding in their interactions with others.
+
+
+Some important rules the AI must follow:
+    - Only ask one question at a time. 
+    - Keep questions short and concise.  
+If the AI does not know the answer to a question, it truthfully says it does not know. The AI ONLY uses information contained in the "Relevant Information" section and does not hallucinate.
+
+Relevant Information:
+
+{history}
+
+Conversation:
+Human: {input}
+AI:"""
+
+
+
+def configure_lang_chain(template=template):
+
+    llm = ChatOpenAI(
+        model_name='gpt-4',
+        temperature=0,
+        max_tokens = 256
+    )
+
+    prompt = PromptTemplate(
+        input_variables=["history", "input"], template=template
+    )
+
+    summary_memory = ConversationSummaryMemory(llm=llm)
+
+    conversation = ConversationChain(
+        llm=llm,
+        verbose=False,
+        memory=summary_memory,
+        prompt=prompt
+    )
+
+    return conversation
+
+
+def get_chat_lang_chain_response(text, lang_chain_conversation):
+    """
+    Calls the chat GPT API with context.
+    """
+
+    response = lang_chain_conversation.predict(input=text)
+
+    return response
+
 
 
 def get_chat_gpt_response(prompt, context=CONTEXT_PROMPT):
