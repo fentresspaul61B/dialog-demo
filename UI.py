@@ -54,8 +54,10 @@ def main():
             
         context = st.text_area("Enter Context")
         
-        
-        LANG_CHAIN_CONVERSATION = configure_lang_chain(context)
+        if not context:
+            LANG_CHAIN_CONVERSATION = configure_lang_chain()
+        else:
+             LANG_CHAIN_CONVERSATION = configure_lang_chain(context)
 
 
         # If the password is correct, then the dialog can start.
