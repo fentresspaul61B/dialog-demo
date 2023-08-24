@@ -94,11 +94,21 @@ def main():
             # st.chat_input(response)
             # Generate GPP response:
 
-            chatbot_response = get_chat_gpt_response(
-                response, 
-                context=context
+            # chatbot_response = get_chat_gpt_response(
+            #     response, 
+            #     context=context
+            # )
+    
+            chatbot_response = get_chat_lang_chain_response(
+                response,
+                lang_chain_conversation=LANG_CHAIN_CONVERSATION
             )
      
+            DIALOG.append({"chat_bot": chatbot_response})
+
+ 
+
+
             DIALOG.append({"chat_bot": chatbot_response})
 
             # st.chat_message(chatbot_response)
