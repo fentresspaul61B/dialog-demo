@@ -60,7 +60,7 @@ def main():
     if user_input == st.secrets["DEVA_USER_PW"]:
         
     
-        st.text(INTRUCTIONS)
+        st.write(INTRUCTIONS)
 
         
         context = st.text_area("Enter Context")
