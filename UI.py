@@ -66,12 +66,17 @@ def main():
         patient_name = st.text_input("Enter Patient First Name") 
         patient_story = st.text_area("Enter Patient Story")
 
-        if patient_story and patient_name:
+        if not st.session_state.processed:
+            
+            patient_name = st.text_input("Enter Patient First Name") 
+            patient_story = st.text_area("Enter Patient Story")
+
+
             prompt = create_lang_chain_prompt(patient_name, patient_story) 
             LANG_CHAIN_CONVERSATION = configure_lang_chain(prompt)
         else:
-            LANG_CHAIN_CONVERSATION = configure_lang_chain()
-        
+            # LANG_CHAIN_CONVERSATION = configure_lang_chain()
+            pass 
         
 
 

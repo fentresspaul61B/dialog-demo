@@ -69,7 +69,7 @@ AI:"""
 
 
 
-
+@st.cache_data()
 def configure_lang_chain(template=template):
 
     llm = ChatOpenAI(
