@@ -135,7 +135,7 @@ def set_open_ai_token():
 
     # Setting the Open AI Key
     openai.api_key = OPEN_AI_TOKEN
-    
+    os.environ['OPENAI_API_KEY'] = OPEN_AI_TOKEN 
 
 
 @st.cache_data()
