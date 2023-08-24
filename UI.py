@@ -29,6 +29,7 @@ from st_helpers.audio_helpers import set_open_ai_token
 from st_helpers.audio_helpers import get_chat_gpt_response  
 from st_helpers.audio_helpers import get_chat_lang_chain_response 
 from st_helpers.audio_helpers import configure_lang_chain
+from st_helpers.audio_helpers import create_lang_chain_prompt
 # Open AI used for whisper and chat GPT.
 import openai
 
@@ -62,13 +63,16 @@ def main():
     
         st.write(INTRUCTIONS)
 
-        
-        context = st.text_area("Enter Context")
-        
-        if not context:
-            LANG_CHAIN_CONVERSATION = configure_lang_chain()
+        patient_name = st.text_input("Enter Patient First Name") 
+        patient_story = st.text_area("Enter Patient Story")
+
+        if patient_story and patient_name:
+            prompt = create_lang_chain_prompt(patient_name, patient_story) 
+            LANG_CHAIN_CONVERSATION = configure_lang_chain(prompt)
         else:
-             LANG_CHAIN_CONVERSATION = configure_lang_chain(context)
+            LANG_CHAIN_CONVERSATION = configure_lang_chain()
+        
+        
 
 
         # If the password is correct, then the dialog can start.
