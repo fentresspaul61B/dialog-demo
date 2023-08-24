@@ -32,6 +32,15 @@ from st_helpers.audio_helpers import configure_lang_chain
 # Open AI used for whisper and chat GPT.
 import openai
 
+INTRUCTIONS = """
+This is a demo for the statistical dialog chatbot. 
+Enter the prompt you were provided below which will create context for the conversation. 
+Press the button to record your voice, and the recording will end when silence is detected. 
+After the recording is done, your response will be processed and the AI will automatically speak back to you. 
+
+"""
+
+
 DIALOG = []
 
 set_open_ai_token()
@@ -46,6 +55,8 @@ def main():
     """
     
     st.title("Mentia Statistical Dialog Model")
+    
+    st.text("")
 
     user_input = st.text_input("Enter Password", type="password")
 
