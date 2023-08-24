@@ -55,14 +55,14 @@ def main():
     """
     
     st.title("Mentia Statistical Dialog Model")
-    
-    st.text("")
-
     user_input = st.text_input("Enter Password", type="password")
 
     if user_input == st.secrets["DEVA_USER_PW"]:
         
-            
+    
+        st.text(INTRUCTIONS)
+
+        
         context = st.text_area("Enter Context")
         
         if not context:
