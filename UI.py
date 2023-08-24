@@ -36,9 +36,7 @@ DIALOG = []
 
 set_open_ai_token()
 
-LANG_CHAIN_CONVERSATION = configure_lang_chain()
-
- # Instantiating ElevenLabs voice.
+# Instantiating ElevenLabs voice.
 my_voice = load_eleven_labs_voice()
 
 
@@ -53,8 +51,12 @@ def main():
 
     if user_input == st.secrets["DEVA_USER_PW"]:
         
-        
+            
         context = st.text_area("Enter Context")
+        
+        
+        LANG_CHAIN_CONVERSATION = configure_lang_chain(context)
+
 
         # If the password is correct, then the dialog can start.
 
