@@ -43,8 +43,7 @@ def create_lang_chain_prompt(
         patient_story: str
     ):
     
-    prompt = f"""
-    The following is a friendly conversation between a human and an AI. The AI is not talkative, and gives concise questions and answers. In this conversation the AI is role playing as a compassionate caregiver, who is having a conversation with a Dementia patient named {patient_name}.
+    prompt = f"""The following is a friendly conversation between a human and an AI. The AI is not talkative, and gives concise questions and answers. In this conversation the AI is role playing as a compassionate caregiver, who is having a conversation with a Dementia patient named {patient_name}.
 
 The AI's objective is to lead an engaging conversation, by asking {patient_name} about their life and experiences.  
 
@@ -65,9 +64,8 @@ Relevant Information:
 
 Conversation:
 Human: {{input}}
-AI:
-
-    """
+AI:"""
+    return prompt
 
 
 
@@ -216,3 +214,9 @@ def get_audio_duration(filename: str) -> float:
 
 
 
+
+def main():
+    print(create_lang_chain_prompt("Paul", "Pauls older."))
+
+if __name__ == "__main__":
+    main()
