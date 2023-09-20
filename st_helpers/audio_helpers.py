@@ -229,7 +229,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
 
-def generate_token():
+def generate_token_2():
     """
     Generates GCP identity token for authentication. 
     """
@@ -245,6 +245,32 @@ def generate_token():
 
 
 import requests
+
+from google.oauth2 import service_account
+from google.auth.transport.requests import Request
+
+def generate_token():
+    """
+    Generates GCP identity token for authentication. 
+    """
+    # Load the service account credentials
+    credentials = service_account.Credentials.from_service_account_info(gcp_credentials)
+    
+    # Ensure the credentials are for the 'service_account' type and have the necessary methods
+    if not credentials.valid:
+        credentials.refresh(Request())
+    
+    # Get the identity token with the target audience
+    assert hasattr(credentials, "with_claims"), "Credentials do not support 'with_claims'. Update google-auth library."
+    
+    id_credentials = credentials.with_claims(aud="https://predict-ser-sa7y3ff77q-uc.a.run.app")
+    
+    if not id_credentials.valid:
+        id_credentials.refresh(Request())
+    
+    id_token = id_credentials.id_token
+    return id_token
+
 
 
 def make_ser_prediction(audio_bytes: str) -> dict:
