@@ -23,6 +23,8 @@ from langchain.chat_models import ChatOpenAI
 
 import os
 
+import base64
+
 CONTEXT_PROMPT = """You are a helpful assistant."""
 
 
@@ -69,7 +71,7 @@ AI:"""
 
 
 
-@st.cache_data()
+@st.cache_resource
 def configure_lang_chain(template=template):
 
     llm = ChatOpenAI(
@@ -204,6 +206,7 @@ def autoplay_audio_from_bytes(audio_data: bytes):
     # st.experimental_rerun()
 
 
+
 def get_audio_duration(filename: str) -> float:
     """
     Get the duration of an audio file in seconds.
@@ -214,7 +217,88 @@ def get_audio_duration(filename: str) -> float:
 
 
 
+GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
 
+
+# Decode the base64 GCP Credentials from Streamlit secrets
+decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
+gcp_credentials = json.loads(decoded_credentials)
+
+
+from google.oauth2 import service_account
+from google.auth.transport.requests import Request
+
+
+def generate_token():
+    """
+    Generates GCP identity token for authentication. 
+    """
+    # Load the service account credentials
+    credentials = service_account.Credentials.from_service_account_info(
+        gcp_credentials,
+        target_audience="https://predict-ser-sa7y3ff77q-uc.a.run.app"
+    )
+    # Get the identity token
+    credentials.refresh(Request())
+    id_token = credentials.id_token
+    return id_token
+
+
+import requests
+
+
+def make_ser_prediction(audio_bytes: str) -> dict:
+    # Configure request. 
+    id_token = generate_token()
+    
+    url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
+
+    headers = {
+        "Authorization": f"Bearer {id_token}",
+        "Content-Type": "application/json"
+    }
+
+    data = {
+        "audio_byte_string": audio_bytes,
+        "environment": "TEST"
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    return response.json()  # Assuming the response is JSON
+
+# 
+# def make_ser_prediction(audio_bytes: str) -> dict:
+#     # Configure request. 
+#     id_token = generate_token()
+#     
+#              
+#     # Decoding the credentials back into JSON format. 
+#     gcp_credentials_raw = base64.b64decode(gcp_credentials_b64).decode('utf-8')
+#     gcp_credentials = json.loads(gcp_credentials_raw)
+#         
+#         # Instantiating GCP client with correct credentials. 
+#     client = storage.Client.from_service_account_info(gcp_credentials)
+#         
+# 
+#     url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
+# 
+#     headers = {
+#         "Authorization": f"Bearer {id_token}",
+#         "Content-Type": "application/json"
+#     }
+# 
+#     data = {
+#         "audio_byte_string": audio_bytes,
+#         "sample_rate": sr,
+# 
+#         "environment": environment
+#     }
+# 
+#     response = requests.post(url, headers=headers, json=data)
+# 
+#     return response
+# 
+# 
 def main():
     print(create_lang_chain_prompt("Paul", "Pauls older."))
 

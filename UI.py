@@ -30,6 +30,7 @@ from st_helpers.audio_helpers import get_chat_gpt_response
 from st_helpers.audio_helpers import get_chat_lang_chain_response 
 from st_helpers.audio_helpers import configure_lang_chain
 from st_helpers.audio_helpers import create_lang_chain_prompt
+from st_helpers.audio_helpers import make_ser_prediction 
 # Open AI used for whisper and chat GPT.
 import openai
 
@@ -87,7 +88,10 @@ def main():
                 neutral_color="#6aa36f",
                 text=""
         )
-           
+        
+        print(type(audio_bytes))
+
+        st.write(make_ser_prediction(audio_bytes))
 
         # Check if the session state has the 'processed' attribute
         if not hasattr(st.session_state, 'processed'):
@@ -117,12 +121,16 @@ def main():
             #     response, 
             #     context=context
             # )
-    
+             
+ 
+            LANG_CHAIN_CONVERSATION = configure_lang_chain()
+
+
             chatbot_response = get_chat_lang_chain_response(
                 response,
                 lang_chain_conversation=LANG_CHAIN_CONVERSATION
             )
-     
+    
             DIALOG.append({"chat_bot": chatbot_response})
 
  
