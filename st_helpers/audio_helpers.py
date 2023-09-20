@@ -236,7 +236,7 @@ def generate_token():
     # Load the service account credentials
     credentials = service_account.Credentials.from_service_account_info(
         gcp_credentials,
-        target_audience="https://predict-ser-sa7y3ff77q-uc.a.run.app"
+        with_target_audience="https://predict-ser-sa7y3ff77q-uc.a.run.app"
     )
     # Get the identity token
     credentials.refresh(Request())
