@@ -265,6 +265,9 @@ def generate_token():
         gcp_credentials, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
+    st.write(type(credentials))
+
+    st.write(credentials)
     # auth_req = google.auth.transport.requests.Request()
     # credentials.refresh(auth_req)
     # credentials.token
