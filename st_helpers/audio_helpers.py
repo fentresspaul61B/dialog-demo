@@ -279,41 +279,23 @@ def generate_token():
     
     # Now make your API call
     # ...
-
-    # Optionally, delete the temporary file
-        
-    GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
-
-    # Decode the base64 GCP Credentials from Streamlit secrets
-    decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
-    gcp_credentials = json.loads(decoded_credentials)
-
-    # Convert the JSON credentials into a google.oauth2 credentials object
-    credentials = service_account.Credentials.from_service_account_info(
-        gcp_credentials, 
+    credentials = service_account.Credentials.from_service_account_file(
+        temp_path, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
-
+    # Optionally, delete the temporary file
+    
     # Set target_audience to the URL of the receiving service (modify this if needed)
-    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
-    st.write(gcp_credentials)
-
-
-
-
     target_audience = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
     
     request = Request()
-    id_token_jwt = id_token.fetch_id_token(request, target_audience) 
+    id_token_jwt = id_token.fetch_id_token(request, target_audience, credentials=credentials)
 
-    os.remove(temp_path)
-    if id_token_jwt:
-        return id_token_jwt
-    else:
-        raise ValueError("Failed to obtain ID token")
+    return id_token_jwt
 
 
-@st.cache_resource
+
+    @st.cache_resource
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
     
