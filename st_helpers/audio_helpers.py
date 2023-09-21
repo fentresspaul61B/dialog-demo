@@ -268,16 +268,19 @@ def generate_token():
     # Set target_audience to the URL of the receiving service (modify this if needed)
     target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
     st.write(gcp_credentials)
-    # Obtain the ID token for the given audience
-    request = google.auth.transport.requests.Request()
-    # id_token_jwt = id_token.fetch_id_token(request, target_service_url)
-       
     
-    # Create an AuthorizedSession using your credentials
-    session = AuthorizedSession(credentials)
+
+    # Make sure the credentials are set as the default for the current environment.
+    google.auth.default = lambda: (credentials, None)
+
+    # Set target_audience to the URL of the receiving service (modify this if needed)
+    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
+
+    # Create the request
+    request = Request()
 
     # Now fetch the ID token
-    id_token_jwt = id_token.fetch_id_token(session, target_service_url)
+    id_token_jwt = id_token.fetch_id_token(request, target_service_url)
 
 
 
