@@ -277,7 +277,7 @@ def generate_token():
     signer = iam.Signer(request, credentials, credentials.service_account_email)
     payload = {
         'aud': target_service_url,
-        'exp': int((datetime.datetime.utcnow() + datetime.timedelta(hours=1)).timestamp()),
+        'exp': int((datetime.utcnow() + datetime.timedelta(hours=1)).timestamp()),
         'iss': credentials.service_account_email,
         'sub': credentials.service_account_email
     }
