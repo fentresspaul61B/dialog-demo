@@ -241,6 +241,8 @@ import requests
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 from datetime import datetime
+from datetime import timedelta
+
 # Load the credentials
 from google.auth.transport.requests import AuthorizedSession
 from google.auth import iam
@@ -277,7 +279,7 @@ def generate_token():
     signer = iam.Signer(request, credentials, credentials.service_account_email)
     payload = {
         'aud': target_service_url,
-        'exp': int((datetime.utcnow() + datetime.timedelta(hours=1)).timestamp()),
+        'exp': int((datetime.utcnow() + timedelta(hours=1)).timestamp()),
         'iss': credentials.service_account_email,
         'sub': credentials.service_account_email
     }
