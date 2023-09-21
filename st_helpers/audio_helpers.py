@@ -269,7 +269,7 @@ def generate_token():
 
     # Obtain the ID token for the given audience
     request = google.auth.transport.requests.Request()
-    id_token_jwt = id_token.fetch_id_token(request, target_service_url, credentials=credentials)
+    id_token_jwt = id_token.fetch_id_token(request, target_service_url)
 
     if id_token_jwt:
         return id_token_jwt
