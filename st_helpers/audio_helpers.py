@@ -270,7 +270,7 @@ def set_google_application_credentials():
 
 
 
-@st.cache_resource
+
 def generate_token():
     """
     Generates GCP identity token for authentication. 
@@ -300,7 +300,6 @@ def generate_token():
 
 
 
-@st.cache_resource
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
     
