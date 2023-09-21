@@ -273,13 +273,12 @@ def generate_token():
 
 
 
+
     target_audience = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
     
-    id_token_credentials = id_token.IDTokenCredentials(credentials, target_audience)
-    
-    # Explicitly make the request to get an ID token
     request = Request()
-    id_token_jwt = id_token_credentials.refresh(request).token 
+    id_token_jwt = id_token.fetch_id_token(request, target_audience) 
+
 
     if id_token_jwt:
         return id_token_jwt
