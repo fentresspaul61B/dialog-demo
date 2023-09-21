@@ -227,7 +227,8 @@ gcp_credentials = json.loads(decoded_credentials)
 
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
-
+from google.oauth2 import service_account
+from google.auth.transport import requests
 
 def generate_token_2():
     """
