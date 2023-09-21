@@ -243,7 +243,7 @@ from google.auth.transport.requests import Request
 
 # Load the credentials
 from google.auth.transport.requests import AuthorizedSession
-
+from google.auth import iam
 
 from google.oauth2 import id_token, service_account
 import google.auth.transport.requests
@@ -270,17 +270,19 @@ def generate_token():
     st.write(gcp_credentials)
     
 
-    # Make sure the credentials are set as the default for the current environment.
-    google.auth.default = lambda: (credentials, None)
+        
+    # Explicitly make the request to get an ID token
+    request = google.auth.transport.requests.Request()
+    credentials.refresh(request)
+    signer = iam.Signer(request, credentials, credentials.service_account_email)
+    payload = {
+        'aud': target_service_url,
+        'exp': int((datetime.datetime.utcnow() + datetime.timedelta(hours=1)).timestamp()),
+        'iss': credentials.service_account_email,
+        'sub': credentials.service_account_email
+    }
+    id_token_jwt = google.auth.jwt.encode(signer, payload)
 
-    # Set target_audience to the URL of the receiving service (modify this if needed)
-    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
-
-    # Create the request
-    request = Request()
-
-    # Now fetch the ID token
-    id_token_jwt = id_token.fetch_id_token(request, target_service_url)
 
 
 
