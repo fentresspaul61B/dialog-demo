@@ -217,12 +217,6 @@ def get_audio_duration(filename: str) -> float:
 
 
 
-GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
-
-
-# Decode the base64 GCP Credentials from Streamlit secrets
-decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
-gcp_credentials = json.loads(decoded_credentials)
 st.write(gcp_credentials)
 import google.auth.transport.requests
 from google.oauth2 import service_account
@@ -254,7 +248,13 @@ def generate_token():
     """
     Generates GCP identity token for authentication. 
     """
-   
+    
+    GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
+
+
+    # Decode the base64 GCP Credentials from Streamlit secrets
+    decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
+    gcp_credentials = json.loads(decoded_credentials)   
     credentials = service_account.Credentials.from_service_account_info(
         gcp_credentials, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
