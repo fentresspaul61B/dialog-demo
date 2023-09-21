@@ -258,6 +258,7 @@ def generate_token():
         gcp_credentials
     )
     print(credentials)
+    st.write(credentials)
     # Obtain an ID token with the audience claim
     token_request = google.auth.transport.requests.Request()
     id_token = credentials.refresh(token_request).id_token
