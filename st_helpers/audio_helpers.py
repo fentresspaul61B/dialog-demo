@@ -224,11 +224,8 @@ GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
 decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
 gcp_credentials = json.loads(decoded_credentials)
 
-
+import google.auth.transport.requests
 from google.oauth2 import service_account
-from google.auth.transport.requests import Request
-from google.oauth2 import service_account
-from google.auth.transport import requests
 
 def generate_token_2():
     """
