@@ -254,9 +254,15 @@ def generate_token():
 
     # Decode the base64 GCP Credentials from Streamlit secrets
     decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
-    gcp_credentials = json.loads(decoded_credentials)   
+    gcp_credentials = json.loads(decoded_credentials)
+
+    st.write(type(gcp_credentials))
+
+    st.write(gcp_credentials)
+
+
     credentials = service_account.Credentials.from_service_account_info(
-        GCP_CREDENTIALS, 
+        gcp_credentials, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
     # auth_req = google.auth.transport.requests.Request()
