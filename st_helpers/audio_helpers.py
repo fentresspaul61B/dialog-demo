@@ -304,7 +304,7 @@ def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
     
     id_token = generate_token()
-    st.write(id_token) 
+
     url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
 
     headers = {
