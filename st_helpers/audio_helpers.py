@@ -278,7 +278,13 @@ def generate_token():
     # token_request = google.auth.transport.requests.Request()
     # id_token = credentials.refresh(token_request).id_token
     # print(id_token)
-    return credentials.token
+
+    # Refresh the credentials to obtain the identity token
+    token_request = google.auth.transport.requests.Request()
+    credentials.refresh(token_request)
+
+    return credentials.id_token
+
 
 
 def make_ser_prediction(audio_bytes: str) -> dict:
