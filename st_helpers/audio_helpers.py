@@ -273,9 +273,13 @@ def generate_token():
 
 
 def make_ser_prediction(audio_bytes: str) -> dict:
-    # Configure request. 
-    id_token = generate_token()
+    # Configure request.
     
+    id_token = generate_token()
+   
+    
+    st.write("my token is:", )
+
     url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
 
     headers = {
@@ -289,7 +293,6 @@ def make_ser_prediction(audio_bytes: str) -> dict:
     }
 
     response = requests.post(url, headers=headers, json=data)
-    st.write(response)
     return response.text  # Assuming the response is JSON
 
 # 
