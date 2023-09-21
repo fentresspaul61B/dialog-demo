@@ -299,7 +299,7 @@ def make_ser_prediction(audio_bytes: str) -> dict:
     }
 
     response = requests.post(url, headers=headers, json=data)
-    return response.text  # Assuming the response is JSON
+    return response  # Assuming the response is JSON
 
 # 
 # def make_ser_prediction(audio_bytes: str) -> dict:
