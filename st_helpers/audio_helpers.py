@@ -295,7 +295,7 @@ def generate_token():
 
 
 
-    @st.cache_resource
+@st.cache_resource
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
     
