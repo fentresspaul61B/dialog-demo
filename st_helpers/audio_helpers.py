@@ -278,14 +278,21 @@ def generate_token():
     # token_request = google.auth.transport.requests.Request()
     # id_token = credentials.refresh(token_request).id_token
     # print(id_token)
+    
+    # Set target_audience to the URL of the receiving service (modify this if needed)
+    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"  
+    credentials = credentials.with_claims(aud=target_service_url)
 
     # Refresh the credentials to obtain the identity token
     token_request = google.auth.transport.requests.Request()
     credentials.refresh(token_request)
 
-    return credentials.id_token
-
-
+    if credentials.id_token_jwt:
+        return credentials.id_token_jwt
+    else:
+        raise ValueError("Failed to obtain ID token")
+    # Refresh the credentials to obtain the identity token
+    
 
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
