@@ -256,7 +256,7 @@ def generate_token():
     decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
     gcp_credentials = json.loads(decoded_credentials)   
     credentials = service_account.Credentials.from_service_account_info(
-        gcp_credentials, 
+        GCP_CREDENTIALS, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
     # auth_req = google.auth.transport.requests.Request()
@@ -278,7 +278,7 @@ def make_ser_prediction(audio_bytes: str) -> dict:
     id_token = generate_token()
    
     
-    st.write("my token is:", )
+    st.write("my token is:", id_token)
 
     url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
 
