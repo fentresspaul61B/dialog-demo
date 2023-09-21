@@ -261,7 +261,7 @@ def generate_token():
     # Obtain an ID token with the audience claim
     token_request = google.auth.transport.requests.Request()
     id_token = credentials.refresh(token_request).id_token
-
+    print(id_token)
     return id_token
 
 
