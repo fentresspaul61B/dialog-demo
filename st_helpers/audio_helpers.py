@@ -223,7 +223,7 @@ GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
 # Decode the base64 GCP Credentials from Streamlit secrets
 decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
 gcp_credentials = json.loads(decoded_credentials)
-
+st.write(gcp_credentials)
 import google.auth.transport.requests
 from google.oauth2 import service_account
 
@@ -258,7 +258,7 @@ def generate_token():
         gcp_credentials
     )
     print(credentials)
-    st.write(credentials)
+#    st.write(credentials)
     # Obtain an ID token with the audience claim
     token_request = google.auth.transport.requests.Request()
     id_token = credentials.refresh(token_request).id_token
