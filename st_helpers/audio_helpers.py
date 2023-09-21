@@ -270,31 +270,16 @@ def generate_token():
     # Set target_audience to the URL of the receiving service (modify this if needed)
     target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
     st.write(gcp_credentials)
+
+
+
+    target_audience = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
     
-
-        
+    id_token_credentials = id_token.IDTokenCredentials(credentials, target_audience)
+    
     # Explicitly make the request to get an ID token
-    request = google.auth.transport.requests.Request()
-    credentials.refresh(request)
-    signer = iam.Signer(request, credentials, credentials.service_account_email)
-    payload = {
-        'aud': target_service_url,
-        'exp': int((datetime.utcnow() + timedelta(hours=1)).timestamp()),
-        'iss': credentials.service_account_email,
-        'sub': credentials.service_account_email
-    }
-
-    payload = {
-        'aud': target_service_url,
-     #   'azp': 'Your_AZP_Value',
-        'email': 'ser-api@devaworld-282317.iam.gserviceaccount.com',
-        'email_verified': True,
-        'exp': int((datetime.utcnow() + timedelta(hours=1)).timestamp()),
-    #    'iat': int(datetime.utcnow().timestamp()),
-        'iss': credentials.service_account_email,
-    #    'sub': credentials.service_account_email,
-    }
-    id_token_jwt = google.auth.jwt.encode(signer, payload).decode("utf-8").strip()
+    request = Request()
+    id_token_jwt = id_token_credentials.refresh(request).token 
 
     if id_token_jwt:
         return id_token_jwt
