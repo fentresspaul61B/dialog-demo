@@ -249,30 +249,21 @@ import requests
 from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
+# Load the credentials
+
+
 def generate_token():
     """
     Generates GCP identity token for authentication. 
     """
-    SCOPES = ["https://www.googleapis.com/auth/cloud-platform"]
-    
-    # Load the service account credentials with explicit scopes
     credentials = service_account.Credentials.from_service_account_info(
-        gcp_credentials, 
-        scopes=SCOPES
+        gcp_credentials
     )
-    print(credentials)  
-    # Refresh the credentials to ensure they're up-to-date
-    if not credentials.valid:
-        credentials.refresh(Request())
-    
-    # Get the identity token with the target audience
-    assert hasattr(credentials, "with_claims"), "Credentials do not support 'with_claims'. Update google-auth library."
-    id_credentials = credentials.with_claims(aud="https://predict-ser-sa7y3ff77q-uc.a.run.app")
-    
-    if not id_credentials.valid:
-        id_credentials.refresh(Request())
-    
-    id_token = id_credentials.id_token
+
+    # Obtain an ID token with the audience claim
+    token_request = google.auth.transport.requests.Request()
+    id_token = credentials.refresh(token_request).id_token
+
     return id_token
 
 
