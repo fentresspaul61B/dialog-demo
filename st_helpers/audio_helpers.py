@@ -244,6 +244,9 @@ from google.auth.transport.requests import Request
 # Load the credentials
 
 
+from google.oauth2 import id_token, service_account
+import google.auth.transport.requests
+
 def generate_token():
     """
     Generates GCP identity token for authentication. 
@@ -251,48 +254,29 @@ def generate_token():
     
     GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
 
-
     # Decode the base64 GCP Credentials from Streamlit secrets
     decoded_credentials = base64.b64decode(GCP_CREDENTIALS).decode('utf-8')
     gcp_credentials = json.loads(decoded_credentials)
 
-    st.write(type(gcp_credentials))
-
-    st.write(gcp_credentials)
-
-
+    # Convert the JSON credentials into a google.oauth2 credentials object
     credentials = service_account.Credentials.from_service_account_info(
         gcp_credentials, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
-    st.write(type(credentials))
 
-    st.write(credentials)
-    # auth_req = google.auth.transport.requests.Request()
-    # credentials.refresh(auth_req)
-    # credentials.token
-
-    # st.write(type(gcp_credentials))
-#    st.write(credentials)
-    # Obtain an ID token with the audience claim
-    # token_request = google.auth.transport.requests.Request()
-    # id_token = credentials.refresh(token_request).id_token
-    # print(id_token)
-    
     # Set target_audience to the URL of the receiving service (modify this if needed)
-    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"  
-    credentials = credentials.with_target_audience(target_service_url)
+    target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
 
-    # Refresh the credentials to obtain the identity token
-    token_request = google.auth.transport.requests.Request()
-    credentials.refresh(token_request)
+    # Obtain the ID token for the given audience
+    request = google.auth.transport.requests.Request()
+    id_token_jwt = id_token.fetch_id_token(request, target_service_url, credentials=credentials)
 
-    if credentials.id_token_jwt:
-        return credentials.id_token_jwt
+    if id_token_jwt:
+        return id_token_jwt
     else:
         raise ValueError("Failed to obtain ID token")
-    # Refresh the credentials to obtain the identity token
-    
+
+
 
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
