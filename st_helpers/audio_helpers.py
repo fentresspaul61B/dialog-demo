@@ -283,7 +283,7 @@ def generate_token():
         'iss': credentials.service_account_email,
         'sub': credentials.service_account_email
     }
-    id_token_jwt = google.auth.jwt.encode(signer, payload)
+    id_token_jwt = google.auth.jwt.encode(signer, payload).decode("utf-8").strip()
 
 
 
