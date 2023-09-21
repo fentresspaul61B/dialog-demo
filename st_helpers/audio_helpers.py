@@ -242,6 +242,7 @@ from google.oauth2 import service_account
 from google.auth.transport.requests import Request
 
 # Load the credentials
+from google.auth.transport.requests import AuthorizedSession
 
 
 from google.oauth2 import id_token, service_account
@@ -270,7 +271,15 @@ def generate_token():
     # Obtain the ID token for the given audience
     request = google.auth.transport.requests.Request()
     # id_token_jwt = id_token.fetch_id_token(request, target_service_url)
-    id_token_jwt = id_token.fetch_id_token(request, target_service_url, credentials=credentials)
+       
+    
+    # Create an AuthorizedSession using your credentials
+    session = AuthorizedSession(credentials)
+
+    # Now fetch the ID token
+    id_token_jwt = id_token.fetch_id_token(session, target_service_url)
+
+
 
     if id_token_jwt:
         return id_token_jwt
