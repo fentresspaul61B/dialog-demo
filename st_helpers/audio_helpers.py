@@ -217,7 +217,7 @@ def get_audio_duration(filename: str) -> float:
 
 
 
-st.write(gcp_credentials)
+# st.write(gcp_credentials)
 import google.auth.transport.requests
 from google.oauth2 import service_account
 
