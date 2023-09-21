@@ -257,7 +257,7 @@ def generate_token():
     credentials = service_account.Credentials.from_service_account_info(
         gcp_credentials
     )
-
+    print(credentials)
     # Obtain an ID token with the audience claim
     token_request = google.auth.transport.requests.Request()
     id_token = credentials.refresh(token_request).id_token
