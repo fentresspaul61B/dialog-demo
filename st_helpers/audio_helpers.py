@@ -253,16 +253,20 @@ def generate_token():
     """
     Generates GCP identity token for authentication. 
     """
-    # Load the service account credentials
-    credentials = service_account.Credentials.from_service_account_info(gcp_credentials)
+    SCOPES = ["https://www.googleapis.com/auth/cloud-platform"]
     
-    # Ensure the credentials are for the 'service_account' type and have the necessary methods
+    # Load the service account credentials with explicit scopes
+    credentials = service_account.Credentials.from_service_account_info(
+        gcp_credentials, 
+        scopes=SCOPES
+    )
+    print(credentials)  
+    # Refresh the credentials to ensure they're up-to-date
     if not credentials.valid:
         credentials.refresh(Request())
     
     # Get the identity token with the target audience
     assert hasattr(credentials, "with_claims"), "Credentials do not support 'with_claims'. Update google-auth library."
-    
     id_credentials = credentials.with_claims(aud="https://predict-ser-sa7y3ff77q-uc.a.run.app")
     
     if not id_credentials.valid:
@@ -270,7 +274,6 @@ def generate_token():
     
     id_token = id_credentials.id_token
     return id_token
-
 
 
 def make_ser_prediction(audio_bytes: str) -> dict:
