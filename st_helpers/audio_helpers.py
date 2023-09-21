@@ -250,6 +250,7 @@ from google.auth import iam
 from google.oauth2 import id_token, service_account
 import google.auth.transport.requests
 
+@st.cache_resource
 def generate_token():
     """
     Generates GCP identity token for authentication. 
@@ -286,7 +287,7 @@ def generate_token():
         raise ValueError("Failed to obtain ID token")
 
 
-
+@st.cache_resource
 def make_ser_prediction(audio_bytes: str) -> dict:
     # Configure request.
     
