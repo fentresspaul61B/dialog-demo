@@ -261,7 +261,7 @@ def generate_token():
     
 
     credentials = service_account.Credentials.from_service_account_file(
-        gcp_credentials, 
+        GCP_CREDENTIALS, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
     auth_req = google.auth.transport.requests.Request()
