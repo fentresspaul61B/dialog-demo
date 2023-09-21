@@ -250,12 +250,38 @@ from google.auth import iam
 from google.oauth2 import id_token, service_account
 import google.auth.transport.requests
 
+
+import base64
+import tempfile
+
+def set_google_application_credentials():
+    # Decode the base64 GCP Credentials from Streamlit secrets
+    decoded_credentials = base64.b64decode(st.secrets["GCP_CREDENTIALS"]).decode('utf-8')
+
+    # Write the credentials to a temporary file
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as temp:
+        temp.write(decoded_credentials.encode('utf-8'))
+        temp_path = temp.name
+
+    # Set the GOOGLE_APPLICATION_CREDENTIALS environment variable to the temporary file path
+    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = temp_path
+
+    return temp_path
+
+
+
 @st.cache_resource
 def generate_token():
     """
     Generates GCP identity token for authentication. 
     """
+    temp_path = set_google_application_credentials()
     
+    # Now make your API call
+    # ...
+
+    # Optionally, delete the temporary file
+        
     GCP_CREDENTIALS = st.secrets["GCP_CREDENTIALS"]
 
     # Decode the base64 GCP Credentials from Streamlit secrets
@@ -280,7 +306,7 @@ def generate_token():
     request = Request()
     id_token_jwt = id_token.fetch_id_token(request, target_audience) 
 
-
+    os.remove(temp_path)
     if id_token_jwt:
         return id_token_jwt
     else:
