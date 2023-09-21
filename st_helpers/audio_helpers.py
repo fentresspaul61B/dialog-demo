@@ -266,7 +266,7 @@ def generate_token():
 
     # Set target_audience to the URL of the receiving service (modify this if needed)
     target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
-
+    st.write(gcp_credentials)
     # Obtain the ID token for the given audience
     request = google.auth.transport.requests.Request()
     id_token_jwt = id_token.fetch_id_token(request, target_service_url)
