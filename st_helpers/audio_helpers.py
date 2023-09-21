@@ -258,13 +258,23 @@ def generate_token():
         gcp_credentials
     )
     st.write(gcp_credentials)
+    
+
+    credentials = service_account.Credentials.from_service_account_file(
+        gcp_credentials, 
+        scopes=['https://www.googleapis.com/auth/cloud-platform']
+    )
+    auth_req = google.auth.transport.requests.Request()
+    credentials.refresh(auth_req)
+    credentials.token
+
     # st.write(type(gcp_credentials))
 #    st.write(credentials)
     # Obtain an ID token with the audience claim
     # token_request = google.auth.transport.requests.Request()
     # id_token = credentials.refresh(token_request).id_token
     # print(id_token)
-    return gcp_credentials["id_token"]
+    return credentials.token
 
 
 def make_ser_prediction(audio_bytes: str) -> dict:
