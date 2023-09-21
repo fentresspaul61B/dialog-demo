@@ -315,7 +315,8 @@ def make_ser_prediction(audio_bytes: str) -> dict:
 
     data = {
         "audio_byte_string": audio_bytes,
-        "environment": "TEST"
+        "environment": "TEST",
+        "sample_rate": 0
     }
 
     response = requests.post(url, headers=headers, json=data)
