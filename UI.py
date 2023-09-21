@@ -89,7 +89,7 @@ def main():
                 text=""
         )
         
-        print(type(audio_bytes))
+        st.write("My type is:", type(audio_bytes))
 
         st.write(make_ser_prediction(audio_bytes))
 
