@@ -283,10 +283,18 @@ def generate_token():
         'iss': credentials.service_account_email,
         'sub': credentials.service_account_email
     }
+
+    payload = {
+        'aud': target_service_url,
+        'azp': 'Your_AZP_Value',
+        'email': 'ser-api@devaworld-282317.iam.gserviceaccount.com',
+        'email_verified': True,
+        'exp': int((datetime.utcnow() + timedelta(hours=1)).timestamp()),
+        'iat': int(datetime.utcnow().timestamp()),
+        'iss': credentials.service_account_email,
+        'sub': credentials.service_account_email,
+    }
     id_token_jwt = google.auth.jwt.encode(signer, payload).decode("utf-8").strip()
-
-
-
 
     if id_token_jwt:
         return id_token_jwt
