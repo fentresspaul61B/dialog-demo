@@ -281,7 +281,7 @@ def generate_token():
     
     # Set target_audience to the URL of the receiving service (modify this if needed)
     target_service_url = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"  
-    credentials = credentials.with_claims(aud=target_service_url)
+    credentials = credentials.with_claims(with_target_audience=target_service_url)
 
     # Refresh the credentials to obtain the identity token
     token_request = google.auth.transport.requests.Request()
