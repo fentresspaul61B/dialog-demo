@@ -254,19 +254,14 @@ def generate_token():
     """
     Generates GCP identity token for authentication. 
     """
-    credentials = service_account.Credentials.from_service_account_info(
-        gcp_credentials
-    )
-    
-    
-
+   
     credentials = service_account.Credentials.from_service_account_info(
         gcp_credentials, 
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
-    auth_req = google.auth.transport.requests.Request()
-    credentials.refresh(auth_req)
-    credentials.token
+    # auth_req = google.auth.transport.requests.Request()
+    # credentials.refresh(auth_req)
+    # credentials.token
 
     # st.write(type(gcp_credentials))
 #    st.write(credentials)
