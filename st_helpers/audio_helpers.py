@@ -288,7 +288,7 @@ def generate_token():
     # Set target_audience to the URL of the receiving service (modify this if needed)
 
     # Use the with_subject() method to create IDTokenCredentials
-    id_credentials = base_credentials.with_subject(credentials.service_account_email)
+    id_credentials = credentials.with_subject(credentials.service_account_email)
 
     # Fetch ID token
     target_audience = "https://predict-ser-sa7y3ff77q-uc.a.run.app/PREDICT_SER/"
