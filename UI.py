@@ -89,7 +89,7 @@ def main():
                 text=""
         )
         
-        st.write("My type is:", type(audio_bytes))
+        # st.write("My type is:", type(audio_bytes))
 
         make_ser_prediction(base64.b64encode(audio_bytes).decode('utf-8'))
 
