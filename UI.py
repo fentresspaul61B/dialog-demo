@@ -91,8 +91,8 @@ def main():
         
         # st.write("My type is:", type(audio_bytes))
 
-        make_ser_prediction(base64.b64encode(audio_bytes).decode('utf-8'))
-
+        response = make_ser_prediction(base64.b64encode(audio_bytes).decode('utf-8'))
+        st.write(response)
         # Check if the session state has the 'processed' attribute
         if not hasattr(st.session_state, 'processed'):
             st.session_state.processed = False
